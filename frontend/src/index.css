@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,75 +10,107 @@
   }
   
   body {
-    @apply font-sans text-photo-gray-800 bg-white m-0 antialiased;
+    @apply font-sans text-luxury-900 bg-luxury-50 m-0 antialiased;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5 {
-    @apply font-serif font-medium;
+    @apply font-sans font-light tracking-tight;
   }
 
   h1 {
-    @apply text-4xl md:text-5xl lg:text-6xl tracking-tight;
+    @apply text-5xl md:text-6xl lg:text-7xl tracking-tighter;
   }
 
   h2 {
-    @apply text-3xl md:text-4xl tracking-tight;
+    @apply text-3xl md:text-4xl lg:text-5xl;
   }
 
   h3 {
-    @apply text-2xl md:text-3xl;
+    @apply text-2xl md:text-3xl font-light;
   }
 
   p {
-    @apply leading-relaxed;
+    @apply leading-relaxed text-luxury-700 font-light;
   }
 }
 
 @layer components {
-  .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  .container-luxury {
+    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
   }
   
   .btn {
-    @apply inline-flex items-center px-6 py-3 text-base font-medium transition duration-200 ease-in-out;
+    @apply inline-flex items-center justify-center px-8 py-3 text-sm font-medium uppercase tracking-wider transition duration-300 ease-in-out;
   }
   
   .btn-primary {
-    @apply bg-photo-accent text-white hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-photo-accent;
+    @apply bg-jordan-red text-white hover:bg-opacity-90 focus:outline-none;
+  }
+  
+  .btn-secondary {
+    @apply bg-luxury-900 text-white hover:bg-luxury-800 focus:outline-none;
   }
   
   .btn-outline {
-    @apply border border-photo-gray-300 text-photo-gray-800 hover:bg-photo-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-photo-gray-500;
+    @apply border border-luxury-300 text-luxury-900 hover:bg-luxury-100 focus:outline-none;
   }
 
-  .glass-card {
-    @apply backdrop-blur-md bg-white/30 border border-white/20 shadow-lg;
+  .btn-white {
+    @apply bg-white text-luxury-900 hover:bg-luxury-100 focus:outline-none;
   }
   
   .section-padding {
-    @apply py-12 md:py-16 lg:py-24;
+    @apply py-16 md:py-24 lg:py-32;
+  }
+  
+  .product-card {
+    @apply bg-white rounded-sm shadow-soft transition-all duration-300 hover:shadow-product;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 border border-luxury-200 focus:border-jordan-red focus:ring-1 focus:ring-jordan-red focus:outline-none bg-white;
   }
 }
 
-/* Smooth image reveal animation */
-.image-reveal {
-  opacity: 0;
-  transform: scale(1.05);
-  transition: opacity 1.5s ease, transform 1.5s ease;
+/* Custom animations */
+.hover-grow {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.image-reveal.is-visible {
-  opacity: 1;
-  transform: scale(1);
+.hover-grow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Subtle hover effect for gallery images */
-.gallery-image {
-  transition: transform 0.5s ease;
+/* Product image float animation */
+.float-animation {
+  animation: float 6s ease-in-out infinite;
 }
 
-.gallery-image:hover {
-  transform: scale(1.02);
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Parallax scroll effect */
+.parallax {
+  transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Product color selector */
+.color-selector {
+  @apply w-6 h-6 rounded-full cursor-pointer border-2 border-transparent transition-all;
+}
+
+.color-selector.active {
+  @apply border-jordan-red;
 }
