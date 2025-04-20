@@ -1,0 +1,15 @@
+# Exported from Render on 2025-04-20T13:37:03Z
+services:
+- type: web
+  name: Henry
+  runtime: python
+  repo: https://github.com/HenryG1711/Henry
+  plan: free
+  envVars:
+  - key: gg
+    sync: false
+  region: frankfurt
+  buildCommand: pip install -r requirements.txt
+  startCommand: cd backend && uvicorn server:app --host 0.0.0.0 --port $PORT
+  rootDir: render.yaml
+version: "1"
