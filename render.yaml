@@ -1,15 +1,36 @@
 # Exported from Render on 2025-04-20T13:37:03Z
 services:
-- type: web
-  name: Henry
-  runtime: python
-  repo: https://github.com/HenryG1711/Henry
-  plan: free
-  envVars:
-  - key: gg
-    sync: false
-  region: frankfurt
-  buildCommand: pip install -r requirements.txt
-  startCommand: cd backend && uvicorn server:app --host 0.0.0.0 --port $PORT
-  rootDir: render.yaml
-version: "1"
+  # Backend API
+  - type: web
+    name: your-app-api
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn server:app --host 0.0.0.0 --port $PORT --workers 1 --reload
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: MONGO_URL
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: FRONTEND_URL
+        value: https://your-app-frontend.onrender.com
+
+  # Frontend React
+  - type: web
+    name: your-app-frontend
+    runtime: node
+    region: oregon
+    plan: free
+    buildCommand: cd frontend && npm i
+    startCommand: cd frontend && PORT=$PORT npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 16.20.0
+      - key: REACT_APP_BACKEND_URL
+        fromService:
+          name: your-app-api
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
